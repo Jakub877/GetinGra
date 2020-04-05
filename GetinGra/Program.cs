@@ -49,7 +49,7 @@ class MainClass
 
         Console.WriteLine("1. Sprawdź parametry szpitala");
         Console.WriteLine("2. Wyrusz na wyprawę");
-        //3. zatrudnij lekarza za 30bzł
+        //3. zatrudnij lekarza za 30bzł do zrobienia
         Console.WriteLine("9. Następny dzień");
         Console.WriteLine("0. Koniec");
 
