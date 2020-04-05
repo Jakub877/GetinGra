@@ -30,7 +30,7 @@ class MainClass
             else if (opcja == "9")
             {
                 //przechodzimy do następnego dnia
-
+                mojSzpital.WyleczPacjentow();
                 mojSzpital.NastepnyDzien();
             }
             else if (opcja == "0")
