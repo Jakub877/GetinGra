@@ -1,0 +1,11 @@
+C:\Users\jakub\source\repos\GetinGra\GetinGra\obj\Debug\netcoreapp3.1\GetinGra.csprojAssemblyReference.cache
+C:\Users\jakub\source\repos\GetinGra\GetinGra\obj\Debug\netcoreapp3.1\GetinGra.AssemblyInfoInputs.cache
+C:\Users\jakub\source\repos\GetinGra\GetinGra\obj\Debug\netcoreapp3.1\GetinGra.AssemblyInfo.cs
+C:\Users\jakub\source\repos\GetinGra\GetinGra\bin\Debug\netcoreapp3.1\GetinGra.exe
+C:\Users\jakub\source\repos\GetinGra\GetinGra\bin\Debug\netcoreapp3.1\GetinGra.deps.json
+C:\Users\jakub\source\repos\GetinGra\GetinGra\bin\Debug\netcoreapp3.1\GetinGra.runtimeconfig.json
+C:\Users\jakub\source\repos\GetinGra\GetinGra\bin\Debug\netcoreapp3.1\GetinGra.runtimeconfig.dev.json
+C:\Users\jakub\source\repos\GetinGra\GetinGra\bin\Debug\netcoreapp3.1\GetinGra.dll
+C:\Users\jakub\source\repos\GetinGra\GetinGra\bin\Debug\netcoreapp3.1\GetinGra.pdb
+C:\Users\jakub\source\repos\GetinGra\GetinGra\obj\Debug\netcoreapp3.1\GetinGra.dll
+C:\Users\jakub\source\repos\GetinGra\GetinGra\obj\Debug\netcoreapp3.1\GetinGra.pdb
