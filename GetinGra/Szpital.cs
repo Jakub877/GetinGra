@@ -35,13 +35,38 @@ public class Szpital
         Console.WriteLine("Planowany przychód do budżetu następnego dnia to (" + wyleczeniPacjenci*10 + ") bananowych złotych.");
     }
 
-    internal void NastepnyDzien()
+    public void PokazPodstawoweParametrySzpitala()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("[" + Nazwa + "] [poziom: " + PoziomSzpitala + "] [Dzień "+ MainClass.Globals.dzien + "] [Budżet: " + Budzet + " bananowych złotych" + "] [Lekarze: " + IloscDostepnychLekarzy + "/" + MaxIloscLekarzy + "] [Pacjenci: " + IloscPacjentow + "/" + IloscLozek+"]");
+    }
+
+    public void ZatrudnijLekarzy()
+    {
+        if (Budzet < 30)
+        {
+            Console.WriteLine("Dostępny budżet to (" + Budzet + ") bananowych złotych . Liczba potrzebnych bananowych złotych do zatrudnienia Lekarza to (30).");
+            return;
+        }
+            
+        else
+        {
+            Budzet -= 30;
+            IloscDostepnychLekarzy += 1;
+            Console.WriteLine("Lekarz został zatrudniony. Aktulna liczba Lekarzy to (" + IloscDostepnychLekarzy + ").");
+            Console.WriteLine("Aktulny budżet to (" + Budzet + ") bananowych złotych.");
+        }
+            
+    }
+
+    public void NastepnyDzien()
+    {
+        
     }
 
     public void WyruszNaWyprawe()
     {   
+        // do ewentualnego wykorzystania później  throw new System.ArgumentException("Wartość pola nie może być nullem", "original");
+
         //zabezpieczenie się przed niewystarczającym budżetem lub lekarzami
         if (IloscDostepnychLekarzy == 0 || Budzet < 50)
         {
@@ -58,13 +83,12 @@ public class Szpital
             return;
 
         }
-        //throw new NotImplementedException();
 
 
         //zdobywamy kilku pacjentów
         Random zmiennaLosowa = new Random();
         int iloscZdobytychPacjentow;
-        iloscZdobytychPacjentow = zmiennaLosowa.Next(2, 10);
+        iloscZdobytychPacjentow = zmiennaLosowa.Next(5, 15);
 
         if (IloscLozek >= IloscPacjentow + iloscZdobytychPacjentow)
             IloscPacjentow += iloscZdobytychPacjentow;
