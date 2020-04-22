@@ -9,6 +9,7 @@ class MainClass
     }
     static void Main()
     {
+
         Console.Write("Nazwa Twojego szpitala: ");
         string nazwaSzpitala = Console.ReadLine();
 
@@ -28,11 +29,34 @@ class MainClass
             else if (opcja == "2")
             {
 
-                //przeniesione do metody WyruszNaWyprawe wewnątrz klasy Szpital ze względu na private set parametru Budzet
+                string wybranaOpcja = WyborTrudnosciWyprawy();
 
-                mojSzpital.WyruszNaWyprawe();
+                Wyprawa wyprawa = new Wyprawa(mojSzpital);
 
+                while (true)
+                {
+                    if (wybranaOpcja == "1")
+                    {
+                        wyprawa.WyruszNaWyprawe("latwy");
+                        break;
 
+                    }
+                    else if (wybranaOpcja == "2")
+                    {
+                        wyprawa.WyruszNaWyprawe("normalny");
+                        break;
+                    }
+                    else if (wybranaOpcja == "3")
+                    {
+                        wyprawa.WyruszNaWyprawe("trudny");
+                        break;
+                    }
+                    else if (wybranaOpcja == "9")
+                    {
+                        break;
+                    }
+                        
+                }
             }
             else if (opcja == "3")
             {
@@ -40,16 +64,18 @@ class MainClass
 
             }
 
+            else if (opcja == "4")
+            {
+                mojSzpital.UlepszSzpital();
+            }
+
             else if (opcja == "9")
             {
                 //przechodzimy do następnego dnia
-                mojSzpital.WyleczPacjentow();
-                mojSzpital.NastepnyDzien();
-                Globals.dzien++ ;
-                Console.WriteLine("Zaczyna się dzień " + Globals.dzien);
+                NextDay(mojSzpital);
 
             }
-            else if (opcja == "8")
+            else if (opcja == "7")
             {
                 while (true)
                 {
@@ -63,8 +89,10 @@ class MainClass
                         pokazKoszty = !pokazKoszty;
                     }
                     else if (OpcjaUstawien == "9")
+                    {
+                        break;
+                    }
                     
-                    break;
                 }
 
             }
@@ -92,13 +120,23 @@ class MainClass
             Console.WriteLine("2. Wyrusz na wyprawę [koszt: 50 bananowych złotych, 1 Lekarz] ");
             //[3. zatrudnij lekarza] 
             Console.WriteLine("3. Zatrudnij Lekarza [koszt: 30 bananowych złotych]");
+            Console.WriteLine($"4. Ulepsz Szpital [koszt: {50 * (Math.Pow(mojSzpital.PoziomSzpitala+1, 2))} bananowych złotych]");
         }
         else
         {
             Console.WriteLine("2. Wyrusz na wyprawę");
             Console.WriteLine("3. Zatrudnij Lekarza");
+            Console.WriteLine("4. Ulepsz Szpital");
         }
-        Console.WriteLine("8. Ustawienia");
+        //3 rodzaje wypraw do wyboru
+        //opcja 3. zatrudnij lekarza za 30bzł
+        //opcja 8. ulepsz szpital
+        //  -podnieść poziom szpitala
+        //  -zwiększenie ilości łóżek
+        //  -zwiększenie ilości możliwych dostępnych lekarzy
+        //  -ulepszenie powinno być drogie :)
+
+        Console.WriteLine("7. Ustawienia");
         Console.WriteLine("9. Następny dzień");
         Console.WriteLine("0. Koniec");
 
@@ -123,6 +161,37 @@ class MainClass
 
             return Console.ReadLine();
          
+    }
+
+    private static string WyborTrudnosciWyprawy()
+    {
+
+        Console.Clear();
+        Console.WriteLine("1. Łatwa wyprawa");
+        Console.WriteLine("2. Normalna wyprawa");
+        Console.WriteLine("3. Trudna wyprawa");
+        Console.WriteLine("9. Powrót do menu");
+
+        return Console.ReadLine();
+    }
+
+    private static void NextDay(Szpital mojSzpital)
+    {
+        Globals.dzien++;
+        Console.WriteLine("Zaczyna się dzień " + Globals.dzien);
+
+        mojSzpital.WyleczPacjentow();
+        Random losowanie = new Random();
+        if (losowanie.Next(0, 5) == 3)
+        {
+            int mnoznik = mojSzpital.PoziomSzpitala * 10;
+            int kasa = losowanie.Next(mnoznik, mnoznik * 3);
+            mojSzpital.WplywDoBudzetu(kasa);
+            Console.WriteLine("Do budżetu skapnęły ochłapy z NFZ w wysokości (" + kasa +").");
+        }
+
+
+        Console.WriteLine("Za wyleczenie pacjentów do budżetu skapnęły bananowe złote w wysokości (" + mojSzpital.Przychod() + ")." );
     }
 }
 
