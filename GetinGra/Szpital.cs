@@ -9,6 +9,7 @@ public class Szpital
     public int PoziomSzpitala { get; set; }
     public int IloscLozek { get; set; }
     public int MaxIloscLekarzy { get; set; }
+    public Pojazd WybranyPojazd { get; set; }
 
     public Szpital(string nazwa)
     {
@@ -38,7 +39,7 @@ public class Szpital
 
     public int Przychod()
     {
-        int wyleczeniPacjenci = IloscDostepnychLekarzy / 2;
+        int wyleczeniPacjenci = (IloscDostepnychLekarzy / 2)+1;
 
         if (wyleczeniPacjenci > IloscPacjentow)
             wyleczeniPacjenci = IloscPacjentow;

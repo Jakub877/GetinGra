@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 class MainClass
 {
@@ -68,6 +69,80 @@ class MainClass
             {
                 mojSzpital.UlepszSzpital();
             }
+            else if (opcja == "5")
+            {           
+                Garaz garaz = new Garaz();
+                string opcjaGarazu;
+                string opcjaDodatkowaGarazu;
+                string[] values = { "1", "2","3","4","5","6","7" };
+
+                //if (values.Contains(interSubDir))
+
+                                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("1. Pokaż oferty pojazdów");
+                    Console.WriteLine("2. Pokaż dostępne pojazdy");
+                    Console.WriteLine("9. Powrót do menu");
+
+                opcjaGarazu =Console.ReadLine();
+                    
+                    if (opcjaGarazu == "1")
+                    {
+                        while(true)
+                        {
+                            Console.Clear();
+                            garaz.PokazListePojazdow();
+                            Console.WriteLine("9. Powrót");
+                            Console.WriteLine("");
+                            Console.WriteLine("Wpisz numer opcji:");
+                            opcjaGarazu = Console.ReadLine();
+                            Console.WriteLine("");
+                            if (values.Contains(opcjaGarazu))
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("Wpisz numer dodatkowej opcji:");
+                                Console.WriteLine("1. Kup Pojazd");
+                                garaz.KupPojazd(garaz.ListaPojazdow.ElementAt(int.Parse(opcjaGarazu)-1),mojSzpital);
+                                Console.WriteLine("Wduś dowolny klawisz, żeby kontynuować...");
+                                Console.ReadLine();
+                            }
+                            else if (opcjaGarazu =="9")
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nieprawidłowa komenda! Wduś dowolny klawisz, żeby kontynuować...");
+                                Console.ReadLine();
+                            }
+                        }
+
+                    }
+                    else if (opcjaGarazu == "2")
+                    {
+                        garaz.PokazListeKupionychPojazdow();
+                        Console.WriteLine("");
+                        Console.WriteLine("Wduś dowolny klawisz, żeby kontynuować...");
+                        Console.ReadLine();
+                    }
+                    else if (opcjaGarazu == "9")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nieprawidłowa komenda! Wduś dowolny klawisz, żeby kontynuować...");
+                        Console.ReadLine();
+                    }
+                }
+
+                //Console.WriteLine
+
+                //garaz.PokazListePojazdow();
+                //garaz.PokazListeKupionychPojazdow();
+
+            }
 
             else if (opcja == "9")
             {
@@ -128,6 +203,7 @@ class MainClass
             Console.WriteLine("3. Zatrudnij Lekarza");
             Console.WriteLine("4. Ulepsz Szpital");
         }
+        Console.WriteLine("5. Garaż");
         //3 rodzaje wypraw do wyboru
         //opcja 3. zatrudnij lekarza za 30bzł
         //opcja 8. ulepsz szpital
@@ -162,6 +238,8 @@ class MainClass
             return Console.ReadLine();
          
     }
+
+
 
     private static string WyborTrudnosciWyprawy()
     {
