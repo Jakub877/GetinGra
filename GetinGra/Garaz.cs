@@ -33,7 +33,7 @@ class Garaz
     {
 
         int k = 1;
-        Console.WriteLine("Lista pojazdów na allegetin:");
+        Console.WriteLine("Menu ofert pojazdów na allegetin:");
         foreach (Pojazd pojazd in ListaPojazdow)
         {
             Console.WriteLine($"{k}. {pojazd.Nazwa} [koszt: {pojazd.Koszt} BZ] ");
@@ -74,22 +74,26 @@ class Garaz
 
     }
 
-    public void PokazListeKupionychPojazdow()
+    public bool PokazListeKupionychPojazdow()
     {
 
         int k = 1;
-        Console.WriteLine("Lista kupionych pojazdów:");
         if (ListaKupionychPojazdow?.Any() != true)
         {
             Console.WriteLine("Nie posiadasz pojazdów! Twoi lekarze muszą zasuwać z buta!");
+            return false;
         }
         else
         {
+            ListaKupionychPojazdow=ListaKupionychPojazdow.OrderBy(x => x.Koszt).ToList();
+            Console.WriteLine("Menu kupionych pojazdów:");
             foreach (Pojazd pojazd in ListaKupionychPojazdow)
             {
                 Console.WriteLine($"{k}. {pojazd.Nazwa}");
                 k++;
             }
+            Console.WriteLine("9. Powrót");
+            return true;
         }
 
 

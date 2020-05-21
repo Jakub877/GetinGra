@@ -22,5 +22,33 @@ using System.Text;
         this.LiczbaMiejscNaPacjentow = liczbaMiejscNaPacjentow;
     }
 
+    public void PokazParametry()
+    {
+        Console.WriteLine($"Nazwa:                      {Nazwa}");
+        Console.WriteLine($"Zawodność:                  {100-Niezawodnosc}%");
+        Console.WriteLine($"Wygląd:                     {Wyglad}");
+        Console.WriteLine($"Modyfikator trudności:      {ModyfikatorTrudnosci}");
+        Console.WriteLine($"Liczba miejsc na pacjentów: {LiczbaMiejscNaPacjentow}");
+    }
+
+    public bool AwariaPojazdu()
+    {
+        if(this==null)
+        {
+            return false;
+        }
+        int niezawodnosc = (this?.Niezawodnosc ?? 100);
+        Random losowanie = new Random();
+
+        if (losowanie.Next(1, 101) > niezawodnosc )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
     }

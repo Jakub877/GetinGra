@@ -34,6 +34,14 @@ public class Szpital
         Console.WriteLine("Lekarze: " + IloscDostepnychLekarzy + "/" + MaxIloscLekarzy);
         Console.WriteLine("Pacjenci: " + IloscPacjentow + "/" + IloscLozek);
         Console.WriteLine("Planowany przychód do budżetu następnego dnia to (" + Przychod() + ") bananowych złotych.");
+        if(WybranyPojazd==null)
+        {
+            Console.WriteLine("Aktywny pojazd: brak");
+        }
+        else
+        {
+            Console.WriteLine($"Aktywny pojazd: {WybranyPojazd.Nazwa}");
+        }
         
     }
 
@@ -55,7 +63,7 @@ public class Szpital
         }   
         IloscLozek += 10;
         MaxIloscLekarzy += 5;
-        Budzet -= 50 * (PoziomSzpitala ^ 2);
+        Budzet -= 50 * Convert.ToInt32(Math.Pow(PoziomSzpitala + 1, 2));
         PoziomSzpitala++;
         Console.WriteLine($"Szpital pomyślnie ulepszono na poziom {PoziomSzpitala}.");
     }
@@ -165,6 +173,42 @@ public class Szpital
     public void WplywDoBudzetu(int kwota)
     {
         Budzet += kwota;
+    }
+
+    public void AktywujPojazd(Pojazd pojazd)
+    {
+        if (pojazd == null)
+        {
+            Console.WriteLine("Nie można aktywować pojazdu!");
+        }
+        else
+        {
+            if(WybranyPojazd==null)
+            {
+                WybranyPojazd = pojazd;
+                Console.WriteLine($"Pojazd {WybranyPojazd.Nazwa}  jest aktywny!");
+            }
+            else
+            {          
+                Console.WriteLine($"Pojazd {WybranyPojazd.Nazwa}  już nie jest aktywny!");
+                WybranyPojazd = pojazd;
+                Console.WriteLine($"Pojazd {WybranyPojazd.Nazwa}  jest aktywny!");
+                
+            }
+        }
+    }
+
+    public void DezaktywujPojazd()
+    {
+        if(WybranyPojazd==null)
+        {
+            Console.WriteLine("Nie posiadasz aktywnego pojazdu!");
+        }
+        else
+        {           
+            Console.WriteLine($"Pojazd {WybranyPojazd.Nazwa} już nie jest aktywny!");
+            WybranyPojazd = null;
+        }
     }
 
 }

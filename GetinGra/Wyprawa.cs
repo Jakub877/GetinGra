@@ -9,10 +9,20 @@ public class Wyprawa
         mojSzpital = szpital;
     }
 
-    public void WyruszNaWyprawe(string poziomTrudnosci)
+    public bool WyruszNaWyprawe(int poziomTrudnosci)
     {
-        PoziomTrudnosci poziom = (PoziomTrudnosci)Enum.Parse(typeof(PoziomTrudnosci), poziomTrudnosci); //poziomTrudnosci. //PoziomTrudnosci.Parse(poziomTrudnosci);  //poziomTrudnosci;
+        PoziomTrudnosci poziom = (PoziomTrudnosci)poziomTrudnosci; //(PoziomTrudnosci)Enum.Parse(typeof(PoziomTrudnosci), poziomTrudnosci); 
         //SomeEnum enum = (SomeEnum)Enum.Parse(typeof(SomeEnum), "EnumValue")
+        bool czyZepsutyPojazd =false;
+        if(mojSzpital.WybranyPojazd?.AwariaPojazdu() ==true)
+        {
+            Console.WriteLine($"Ups! {mojSzpital.WybranyPojazd.Nazwa} się rozklekotał! Lekarz musi odbyć tę wyprawę bez pojazdu.");
+            czyZepsutyPojazd = true;
+            mojSzpital.WybranyPojazd = null; 
+        }
+
+        int modyfikatorTrudnosci = (mojSzpital.WybranyPojazd?.ModyfikatorTrudnosci ?? 0);
+        int liczbaMiejscNaPacjentow = (mojSzpital.WybranyPojazd?.LiczbaMiejscNaPacjentow ?? 0);
 
         int maxIloscPacjentow = 0;
         int szansaUtratyLekarza = 20;
@@ -41,27 +51,32 @@ public class Wyprawa
         if (mojSzpital.IloscDostepnychLekarzy > 0 && mojSzpital.PobierzZBudzetu(50))
         {
             Random losowanie = new Random();
-            mojSzpital.IloscPacjentow += losowanie.Next(5, maxIloscPacjentow);
+            int nowiPacjenci = losowanie.Next(5, maxIloscPacjentow + liczbaMiejscNaPacjentow);
+            mojSzpital.IloscPacjentow += nowiPacjenci;
             if (mojSzpital.IloscPacjentow > mojSzpital.IloscLozek)
                 mojSzpital.IloscPacjentow = mojSzpital.IloscLozek;
 
-            if (losowanie.Next(1, 101) > 100-szansaUtratyLekarza)
+            if (losowanie.Next(1, 101) > 100-szansaUtratyLekarza+ modyfikatorTrudnosci)
             {
                 mojSzpital.IloscDostepnychLekarzy -= 1;
-                Console.WriteLine("Wyprawa udana. Niestety jeden lekarz poświęcił się dla uratowania przed straszliwym wirusem nowych pacjentów");
+                Console.WriteLine($"Wyprawa udana. Niestety jeden lekarz poświęcił się dla uratowania przed straszliwym wirusem {nowiPacjenci} nowych pacjentów");
+                return czyZepsutyPojazd;
             }
             else
             {
-                Console.WriteLine("Wyprawa udana. Wszyscy szczęśliwi, radośni, poobijani i z nowym kredytem wracają do domu.");
+                Console.WriteLine($"Wyprawa udana, znaleziono {nowiPacjenci} nowych pacjentów. Wszyscy szczęśliwi, radośni, poobijani i z nowym kredytem wracają do domu.");
+                return czyZepsutyPojazd;
             }
         }
         else if (mojSzpital.IloscDostepnychLekarzy == 0)
         {
             Console.WriteLine("Dopadła Cię choroba Polskiego NFZ - wszyscy lekarze są na Zachodzie");
+            return czyZepsutyPojazd;
         }
         else
         {
             Console.WriteLine("Zgłoś się do NFZ po fundusze, bo ten wyjazd nie będzie refundowany");
+            return czyZepsutyPojazd;
         }
 
         //if (mojSzpital.IloscDostepnychLekarzy > 0 && mojSzpital.PobierzZBudzetu(50))
