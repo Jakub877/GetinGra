@@ -487,7 +487,7 @@ class MainClass
                     //{
                     //    Console.WriteLine($"{rzecz.Nazwa}: {rzecz.SzansaTrafienia + (stawka / 10) - 1}%");
                     //    //20{20-39/20%},40{40-69/30%},70{70-99/30%}
-                    //    //po usunieciu nic dziedzina zmienia się na 20-99{80}, więc 20/80,30/80, 30/80 z 0-99
+                    //   //po usunieciu nic dziedzina zmienia się na 20-99{80}, więc 20/80,30/80, 30/80 z 0-99
                     //    //   /(100-(stawka / 10) - 1)
 
                     //}
