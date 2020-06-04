@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
 public class Wyprawa
 {
     private Szpital mojSzpital;
@@ -9,7 +10,7 @@ public class Wyprawa
         mojSzpital = szpital;
     }
 
-    public bool WyruszNaWyprawe(int poziomTrudnosci)
+    public bool WyruszNaWyprawe(int poziomTrudnosci, List<PrzedmiotWartosciowy> coMoznaZdobyc)  
     {
         PoziomTrudnosci poziom = (PoziomTrudnosci)poziomTrudnosci; //(PoziomTrudnosci)Enum.Parse(typeof(PoziomTrudnosci), poziomTrudnosci); 
         //SomeEnum enum = (SomeEnum)Enum.Parse(typeof(SomeEnum), "EnumValue")
@@ -47,10 +48,33 @@ public class Wyprawa
             szansaUtratyLekarza = 95;
         }
 
+        Random losowanie = new Random();
+        int szansaPrzedmiot = losowanie.Next(0, 100);
+
+        //OrderBy - sortowanie po tym co w nawiasie
+        //FirtstOrDefault - znajduje pierwszy element spełniający warunek,
+        //jeśli nic nie znajdzie, to zwraca null
+        Przedmiot wylosowany = coMoznaZdobyc.OrderBy(p => p.SzansaTrafienia).FirstOrDefault(p => p.SzansaTrafienia <= szansaPrzedmiot);
+
+        // foreach(Przedmiot p in coMoznaZdobyc)
+        // {
+        //     if(p.SzansaTrafienia <= szansaPrzedmiot)
+        //     {
+        //         wylosowany = p;
+        //         break;
+        //     }
+        // }
+
+        if (wylosowany != null)
+        {
+            mojSzpital.Przedmioty.Add(wylosowany);
+            Console.WriteLine($"Podczas wyprawy twój lekarz zdobył {wylosowany.Nazwa}. Podjarał się tym jak lampion w roraty lub tester w dzień wypłaty!");
+        }
+            
 
         if (mojSzpital.IloscDostepnychLekarzy > 0 && mojSzpital.PobierzZBudzetu(50))
         {
-            Random losowanie = new Random();
+            //Random losowanie = new Random();
             int nowiPacjenci = losowanie.Next(5, maxIloscPacjentow + liczbaMiejscNaPacjentow);
             mojSzpital.IloscPacjentow += nowiPacjenci;
             if (mojSzpital.IloscPacjentow > mojSzpital.IloscLozek)
@@ -79,41 +103,6 @@ public class Wyprawa
             return czyZepsutyPojazd;
         }
 
-        //if (mojSzpital.IloscDostepnychLekarzy > 0 && mojSzpital.PobierzZBudzetu(50))
-        //{
-        //    int modyfikatorTrudnosci = 0;
-
-        //    if (poziomTrudnosci == "latwy")
-        //        {
-        //            modyfikatorTrudnosci = 0;
-        //        }
-        //    else if (poziomTrudnosci == "normalny")
-        //        {
-        //            modyfikatorTrudnosci = 3;
-        //        }
-        //    else if (poziomTrudnosci == "trudny")
-        //        {
-        //            modyfikatorTrudnosci = 6;
-        //        }
-
-        //    int nowiPacjenci;
-        //    Random losowanie = new Random();
-        //    nowiPacjenci = losowanie.Next(5, 14 + modyfikatorTrudnosci);
-
-        //    Random losowanieStraty = new Random();
-
-        //    if (losowanie.Next(1, 11) > (10 - modyfikatorTrudnosci) )
-        //      {
-        //        mojSzpital.IloscDostepnychLekarzy -= 1;
-        //        Console.WriteLine($"Wyprawa udana. Niestety jeden lekarz poświęcił się dla uratowania przed straszliwym wirusem ({nowiPacjenci}) nowych pacjentów.");
-        //      }   
-        //    else
-        //     {
-        //        Console.WriteLine($"Wyprawa udana. Lekarzowi udało się powrócić i uratować przed straszliwym wirusem ({nowiPacjenci}) nowych pacjentów.");
-        //     }
-
-
-
         //    mojSzpital.IloscPacjentow += nowiPacjenci;
         //    if (mojSzpital.IloscPacjentow > mojSzpital.IloscLozek)
         //    {
@@ -121,17 +110,5 @@ public class Wyprawa
         //        Console.WriteLine("Liczba znalezionych pacjentów przekroczyła liczbę dostępnych łóżek. Nie wszyscy mogli zostać zabrani do szpitala.");
         //    }
 
-
-
-
-        //}
-        //else if (mojSzpital.IloscDostepnychLekarzy == 0)
-        //{
-        //    Console.WriteLine("Dopadła Cię choroba Polskiego NFZ - wszyscy lekarze są na Zachodzie");
-        //}
-        //else
-        //{
-        //    Console.WriteLine("Zgłoś się do NFZ po fundusze, bo ten wyjazd nie będzie refundowany");
-        //}
     }
 }

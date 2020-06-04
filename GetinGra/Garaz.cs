@@ -40,14 +40,6 @@ class Garaz
             k++;
 
         }
-        
-
-
-        //Console.WriteLine(Nazwa + "   poziom: " + PoziomSzpitala);
-        //Console.WriteLine("Budżet " + Budzet + " bananowych złotych");
-        //Console.WriteLine("Lekarze: " + IloscDostepnychLekarzy + "/" + MaxIloscLekarzy);
-        //Console.WriteLine("Pacjenci: " + IloscPacjentow + "/" + IloscLozek);
-        //Console.WriteLine("Planowany przychód do budżetu następnego dnia to (" + Przychod() + ") bananowych złotych.");
 
     }
 

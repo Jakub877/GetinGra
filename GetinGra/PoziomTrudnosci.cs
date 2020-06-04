@@ -17,7 +17,9 @@ public enum OpcjaMenu
     ZatrudnijLekarzy=3,
     UlepszSzpital=4,
     MenuGarazu=5,
-    MenuUstawien=7,
+    MenuUstawien=6,
+    PokazSkrytke=7,
+    Kasyno=8,
     NextDay =9,
     Koniec =0
 }

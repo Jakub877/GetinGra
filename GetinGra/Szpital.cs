@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 public class Szpital
 {
     public string Nazwa { get; }
@@ -10,24 +10,34 @@ public class Szpital
     public int IloscLozek { get; set; }
     public int MaxIloscLekarzy { get; set; }
     public Pojazd WybranyPojazd { get; set; }
+    public List<Przedmiot> Przedmioty { get; set; }
 
     public Szpital(string nazwa)
     {
         Nazwa = nazwa;
-        Budzet = 100; //100
+        Budzet = 100; 
         IloscDostepnychLekarzy = 3; //3
         MaxIloscLekarzy = 10;
         IloscPacjentow = 0;
         IloscLozek = 30;
         PoziomSzpitala = 1;
+        Przedmioty = new List<Przedmiot>();
+
+        Bron nowaBron = new Bron();
+        nowaBron.Nazwa = "Kije samobije";
+        nowaBron.Cena = 20;
+        nowaBron.Obrazenia = 3;
+        Przedmioty.Add(nowaBron);
+
+        Wzmacniacz nowyWzmacniacz = new Wzmacniacz();
+        nowyWzmacniacz.Nazwa = "Riki tiki narkotyki";
+        nowyWzmacniacz.Atak = 2;
+        nowyWzmacniacz.Obrona = -1;
+        Przedmioty.Add(nowyWzmacniacz);
     }
 
     public void PokazParametrySzpitala()
     {
-        //int wyleczeniPacjenci =  IloscDostepnychLekarzy / 2;
-
-        //if (wyleczeniPacjenci > IloscPacjentow)
-        //    wyleczeniPacjenci = IloscPacjentow;
 
         Console.WriteLine(Nazwa + "   poziom: " + PoziomSzpitala);
         Console.WriteLine("Budżet " + Budzet + " bananowych złotych");
@@ -96,60 +106,6 @@ public class Szpital
         }
             
     }
-
-
-    //public void WyruszNaWyprawe()
-    //{   
-    //    // do ewentualnego wykorzystania później  throw new System.ArgumentException("Wartość pola nie może być nullem", "original");
-
-    //    //zabezpieczenie się przed niewystarczającym budżetem lub lekarzami
-    //    if (IloscDostepnychLekarzy == 0 || Budzet < 50)
-    //    {
-    //        if(IloscDostepnychLekarzy == 0)
-    //        {
-    //            Console.WriteLine("Liczba dostępnych Lekarzy to (0). Liczba potrzebnych Lekarzy do wyruszenia na wyprawę to (1).");
-    //        }
-
-    //        if (Budzet < 50)
-    //        {
-    //            Console.WriteLine("Dostępny budżet to (" + Budzet + ") bananowych złotych . Liczba potrzebnych bananowych złotych do wyruszenia na wyprawę to (50).");
-    //        }
-
-    //        return;
-
-    //    }
-
-
-    //    //zdobywamy kilku pacjentów
-    //    Random zmiennaLosowa = new Random();
-    //    int iloscZdobytychPacjentow;
-    //    iloscZdobytychPacjentow = zmiennaLosowa.Next(5, 15);
-
-    //    if (IloscLozek >= IloscPacjentow + iloscZdobytychPacjentow)
-    //        IloscPacjentow += iloscZdobytychPacjentow;
-    //    else
-    //    {
-    //        Console.WriteLine("Liczba zdobytych pacjentów przekroczyła liczbę dostępnych łóżek. Nie wszyscy mogli zostać zabrani do szpitala");
-    //        IloscPacjentow = IloscLozek;
-            
-    //    }
-
-
-    //    //tracimy jednego lekarza
-
-
-    //    IloscDostepnychLekarzy -= 1;
-
-    //    //koszt wyprawy = 50bzł
-
-    //    Budzet -= 50;
-
-    //    Console.WriteLine("Wyprawa powiodła się. Liczba znalezionych pacjentów to (" + iloscZdobytychPacjentow + "), a łączna liczba pacjentów to (" + IloscPacjentow + ").");
-    //    Console.WriteLine("Budżet " + Budzet + " bananowych złotych");
-    //    Console.WriteLine("Lekarze: " + IloscDostepnychLekarzy + "/" + MaxIloscLekarzy);
-
-    //}
-  
 
     public void WyleczPacjentow()
     {
